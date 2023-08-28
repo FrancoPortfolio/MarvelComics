@@ -21,13 +21,14 @@ class HomePresenter {
         // NOTE: Format the response from the Interactor and pass the result back to the View Controller
         // NOTE: Remember to use workers if complex processing is required
         
-        var heros : [HomeScene.initialLoad.ViewModel.HeroProfileData] = []
+        var heros : [HomeScene.initialLoad.ViewModel.HeroProfileInitialDataLoad.HeroProfileData] = []
         
         for result in response.characterResponse.data.results{
             
-            heros.append(HomeScene.initialLoad.ViewModel.HeroProfileData(
+            heros.append(HomeScene.initialLoad.ViewModel.HeroProfileInitialDataLoad.HeroProfileData(
                 name: result.name,
-                photoURL: result.thumbnail.path + "." + result.thumbnail.thumbnailExtension.rawValue))
+                photoURL: result.thumbnail.path + "." + result.thumbnail.thumbnailExtension.rawValue,
+                heroId: result.id))
         }
         
         viewController?.displayinitialLoad(viewModel: HomeScene.initialLoad.ViewModel.HeroProfileInitialDataLoad(heros: heros))

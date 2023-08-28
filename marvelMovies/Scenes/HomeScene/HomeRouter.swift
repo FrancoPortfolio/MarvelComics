@@ -18,7 +18,7 @@ class HomeRouter {
 
     // MARK: - Navigation
 
-    func navigateToSomewhere() {
+    func navigateToHeroDetailScene(heroId: Int) {
         // NOTE: Teach the router how to navigate to another scene. Some examples follow:
 
         // 1. Trigger a storyboard segue
@@ -38,6 +38,9 @@ class HomeRouter {
         // 5. Present a view controller from a different storyboard the StartApps way (preferred)
         // let someWhereViewController = SomeWhereViewController.instantiate()
         // viewController?.navigationController?.pushViewController(someWhereViewController, animated: true)
+        let homeDetailViewController = HeroDetailViewController.instantiate(heroId: heroId)
+        viewController?.navigationController?.pushViewController(homeDetailViewController, animated: false)
+        
     }
 
     // MARK: - Communication

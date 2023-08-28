@@ -20,7 +20,7 @@ class HomeViewController: UIViewController {
 
     // NOTE: Only store objects here if required
     // private var displayedSomethings: [initialLoad]?
-    private var heros: [HomeScene.initialLoad.ViewModel.HeroProfileData]?
+    private var heros: [HomeScene.initialLoad.ViewModel.HeroProfileInitialDataLoad.HeroProfileData]?
     private var headerHeight = 150.0
     
     
@@ -46,6 +46,7 @@ class HomeViewController: UIViewController {
         // somethingLabel.textColor = UIColor.blue
         title = "Home"
         view.backgroundColor = .white
+//        navigationController?.navigationBar.backgroundColor = .whitexx
         makeViews()
         addViews()
         setupLayout()
@@ -68,14 +69,10 @@ class HomeViewController: UIViewController {
         NSLayoutConstraint.activate([
             spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            heroTableView.topAnchor.constraint(equalTo: view.topAnchor),
+            heroTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             heroTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             heroTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             heroTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-//            heroProfiles.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-//            heroProfiles.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
-//            heroProfiles.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            heroProfiles.heightAnchor.constraint(equalToConstant: 150)
         ])
         
         
@@ -102,8 +99,9 @@ class HomeViewController: UIViewController {
         heroProfiles.register(HomeHeroProfileCell.self, forCellWithReuseIdentifier: HomeHeroProfileCell.id)
         heroProfiles.dataSource = self
         heroProfiles.delegate = self
+        heroProfiles.backgroundColor = .white
         heroProfiles.translatesAutoresizingMaskIntoConstraints = false
-        heroProfiles.isHidden = true
+//        heroProfiles.isHidden = true
         heroProfiles.showsHorizontalScrollIndicator = false
         //heroProfiles.num = 1
         
@@ -113,9 +111,12 @@ class HomeViewController: UIViewController {
         let tableView = UITableView()
         tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: "header")
         
+        
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.register(HomeHeroTableCell.self, forCellReuseIdentifier: HomeHeroTableCell.id)
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.isHidden = true
         
         self.heroTableView = tableView
     }
@@ -138,7 +139,8 @@ class HomeViewController: UIViewController {
         self.heros = viewModel.heros
         spinner.stopAnimating()
         heroProfiles.reloadData()
-        heroProfiles.isHidden = false
+        heroTableView.isHidden = false
+        heroTableView.reloadData()
     }
     
     func displayAlertError(viewModel: HomeScene.AlertError.ViewModel) {
@@ -154,7 +156,9 @@ class HomeViewController: UIViewController {
 extension HomeViewController: UICollectionViewDelegate{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Xd at \(indexPath.row)")
+        guard let hero = heros?[indexPath.row] else { return }
+        
+        self.router.navigateToHeroDetailScene(heroId: hero.heroId)
     }
     
 }
@@ -163,13 +167,9 @@ extension HomeViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if let heros = self.heros {
-            
             return heros.count
-            
         }
-        
         return 0
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -204,21 +204,46 @@ extension HomeViewController: UITableViewDelegate{
         ])
         
         return header
-        
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 150
+        return headerHeight
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let hero = heros?[indexPath.row] else { return }
+        
+        self.router.navigateToHeroDetailScene(heroId: hero.heroId)
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
 extension HomeViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let heros = self.heros {
+            return heros.count
+        }
         return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: HomeHeroTableCell.id) as! HomeHeroTableCell
+        
+        guard let heros = self.heros else { return UITableViewCell() }
+        
+        let hero = heros[indexPath.row]
+        cell.setName(name: hero.name)
+        cell.setImage(urlString: hero.photoURL)
+        print(hero.name)
+        print(hero.heroId)
+        
+        return cell
     }
     
     

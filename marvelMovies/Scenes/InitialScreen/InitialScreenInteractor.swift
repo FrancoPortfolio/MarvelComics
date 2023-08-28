@@ -25,11 +25,7 @@ class InitialScreenInteractor {
         // NOTE: Pass the result to the Presenter
         do {
             presenter?.presentInitialScreen(response: InitialScreenScene.InitialScreen.Response())
-        } catch {
-            presenter?.presentAlertError(response: InitialScreenScene.AlertError.Response(
-                error: error
-            ))
-        }
+        } 
     }
 
 }

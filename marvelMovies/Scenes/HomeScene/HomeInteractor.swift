@@ -45,11 +45,7 @@ class HomeInteractor {
                 
             }
             
-        } catch {
-            presenter?.presentAlertError(response: HomeScene.AlertError.Response(
-                error: error
-            ))
-        }
+        } 
     }
 
 }

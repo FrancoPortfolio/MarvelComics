@@ -56,7 +56,6 @@ class HomeHeroProfileCell: UICollectionViewCell{
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 40
-        imageView.layer.borderWidth = 0
         imageView.layer.masksToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         self.profileImage = imageView

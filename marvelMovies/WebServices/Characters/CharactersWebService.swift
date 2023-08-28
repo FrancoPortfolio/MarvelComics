@@ -23,4 +23,14 @@ class CharactersWebService{
             
         }
     }
+    
+    func getCharacterById(heroId: Int, completion: @escaping (AFDataResponse<Data>) -> ()){
+        
+        AF.request("https://gateway.marvel.com/v1/public/characters/\(heroId)?ts=1&apikey=\(publicKey ?? "")&hash=\(md5Key ?? "")").responseData{ (response: AFDataResponse<Data>) in
+            
+            completion(response)
+            
+        }
+        
+    }
 }
