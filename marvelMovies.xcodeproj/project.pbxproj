@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E40610DB2B55757E00D11C09 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = E40610DA2B55757E00D11C09 /* .gitignore */; };
 		E44E65A82A9CDC4000106786 /* HeroDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44E65A22A9CDC4000106786 /* HeroDetailPresenter.swift */; };
 		E44E65A92A9CDC4000106786 /* HeroDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44E65A32A9CDC4000106786 /* HeroDetailRouter.swift */; };
 		E44E65AA2A9CDC4000106786 /* HeroDetailModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44E65A42A9CDC4000106786 /* HeroDetailModels.swift */; };
@@ -52,6 +53,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E40610DA2B55757E00D11C09 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		E44E65A22A9CDC4000106786 /* HeroDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailPresenter.swift; sourceTree = "<group>"; };
 		E44E65A32A9CDC4000106786 /* HeroDetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailRouter.swift; sourceTree = "<group>"; };
 		E44E65A42A9CDC4000106786 /* HeroDetailModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailModels.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 		E4530AF32A9653410083F0A9 = {
 			isa = PBXGroup;
 			children = (
+				E40610DA2B55757E00D11C09 /* .gitignore */,
 				E4530AFE2A9653410083F0A9 /* marvelMovies */,
 				E4530AFD2A9653410083F0A9 /* Products */,
 			);
@@ -328,6 +331,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4530B0C2A9653440083F0A9 /* LaunchScreen.storyboard in Resources */,
+				E40610DB2B55757E00D11C09 /* .gitignore in Resources */,
 				E4530B092A9653440083F0A9 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
